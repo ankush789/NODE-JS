@@ -12,7 +12,7 @@ const fs=require('fs');
      //setting response header
     res.writeHead(200,{'content-type':'text/html'});
     
-    fs.readFile('./indeex.html',(err ,data)=>{
+    fs.readFile('./index.html',(err ,data)=>{
         if(err){
             console.log('ERROR:', err);
             return res.end('<h1>ERROR!!</h1>');
