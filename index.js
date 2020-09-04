@@ -1,7 +1,7 @@
 //create an instance of http server
 const http= require('http');
 const port = 4771;
-
+const path = require('path');
 // fs module is used to read and write into the files.
 const fs=require('fs');
 
@@ -9,21 +9,37 @@ const fs=require('fs');
  function requestHandler(req, res){
      console.log(req.url);
 
-     //setting response header
-    res.writeHead(200,{'content-type':'text/html'});
-    
-    fs.readFile('./index.html',(err ,data)=>{
-        if(err){
-            console.log('ERROR:', err);
-            return res.end('<h1>ERROR!!</h1>');
-        }
-        else{
-            return res.end(data);
-        }
-    })
+    if(req.url==='/'){
+        res.writeHead(200, { 'content-type': 'text/html' });
+        fs.readFile('./index.html', (err, data) => {
+            if (err) {
+                console.log('ERROR:', err);
+                return res.end('<h1>ERROR!!</h1>');
+            }
+            else {
+                return res.end(data);
+            }
+        })
+    }
 
+    else if(req.url.match("\.css$")){
+        var cssPath =path.join(__dirname,req.url);
+        var fileStream =fs.createReadStream(cssPath , "UTF-8");
+        res.writeHead(200, {"Content-type": "text/css"});
+        fileStream.pipe(res);
+    }
+    else if(req.url.match("\.jpg$")){
+        var imagePath = path.join(__dirname,req.url);
+        var fileStream = fs.createReadStream(imagePath);
+        res.writeHead(200,{"Content-type": "image/png"});
+        fileStream.pipe(res);
+    }
+    else {
+        res.writeHead(404, {"Content-type":"text/html"});
+        res.end("No page found!!");
+    }
  }
-
+ // https://www.youtube.com/watch?v=-p8RiJvxCRo
  
 //creating a server 
 const server = http.createServer(requestHandler);
@@ -34,5 +50,5 @@ server.listen(port, function(err){
         console.log(err);
         return;
     }
-    console.log("Server is up and running on port:", port);
+    console.log("Server is up and running  on ", port);
 });
