@@ -8,10 +8,21 @@ const fs=require('fs');
 //Serving a response to the browser --- a plain text
  function requestHandler(req, res){
      console.log(req.url);
+     let filePath;
+    switch(req.url){
+        case '/': 
+        filePath = './index.html';
+        break;
+        case '/profile':
+        filePath = './profile.html';
+        break;
+        default: 
+        filePath= './404.html'
+    }
+     if (req.url === '/' || req.url === '/profile'){
 
-    if(req.url==='/'){
         res.writeHead(200, { 'content-type': 'text/html' });
-        fs.readFile('./index.html', (err, data) => {
+        fs.readFile(filePath, (err, data) => {
             if (err) {
                 console.log('ERROR:', err);
                 return res.end('<h1>ERROR!!</h1>');
@@ -21,6 +32,7 @@ const fs=require('fs');
             }
         })
     }
+
 
     else if(req.url.match("\.css$")){
         var cssPath =path.join(__dirname,req.url);
