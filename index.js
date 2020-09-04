@@ -1,6 +1,8 @@
 //create an instance of http server
 const http= require('http');
 const port = 4771;
+
+// fs module is used to read and write into the files.
 const fs=require('fs');
 
 //Serving a response to the browser --- a plain text
@@ -9,7 +11,17 @@ const fs=require('fs');
 
      //setting response header
     res.writeHead(200,{'content-type':'text/html'});
-    res.end("<h1>Hello!!</h1>")
+    
+    fs.readFile('./indeex.html',(err ,data)=>{
+        if(err){
+            console.log('ERROR:', err);
+            return res.end('<h1>ERROR!!</h1>');
+        }
+        else{
+            return res.end(data);
+        }
+    })
+
  }
 
  
