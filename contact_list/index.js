@@ -4,7 +4,7 @@ const { get } = require('http');
 const port = 8800;
 
 const app = express();
-
+app.use(express.urlencoded());
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 
@@ -30,7 +30,10 @@ app.get('/',(req,res)=>{
 app.get('/practice',(req,res)=>{
     return res.render('practice');
 });
-
+app.post('/create-contact', (req,res)=>{
+    contacts.push(req.body);
+    return res.redirect('/');
+});
 
 app.listen(port, (err)=>{
     if(err){
