@@ -8,6 +8,18 @@ app.use(express.urlencoded());
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 
+
+// middleware
+
+app.use((req,res,next)=>{
+    console.log("MiddleWare 1 called!");
+    next();
+});
+
+app.use((req,res,next)=>{
+    console.log("MiddleWare 2 called!!");
+    next();
+});
 const contacts = [
     {
         name:"ankush",
