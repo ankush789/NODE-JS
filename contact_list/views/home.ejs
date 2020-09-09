@@ -7,15 +7,19 @@
         <%= title%>
     </title>
     <link rel="stylesheet" href="/css/home.css">
+    <script src="https://use.fontawesome.com/22229568fd.js"></script>
 </head>
 <body>
-    <h1>Contact List</h1>
+    <span id="icon">
+    <i class="fa fa-address-card"></i>
+    </span>
+    <h1 style="display: inline;">Contact List</h1>
 
     <ul>
         <% for( let i of contact_list){ %>
-            <li>
-                <p><%= i.name %></p>
-                <p><%= i.phone %></p>
+            <li id="contact">
+                <span class="inner-text" style="float:left"><%= i.name %></span>
+                <span class="inner-text" style="float:right"><%= i.phone %></span>
             </li>
         <% } %>
     </ul>
@@ -24,11 +28,10 @@
         <div>
             <input type="text" name="name" id="">
             <input type="number" name="phone" id="">
-        </div>
-        <div>
             <button type="submit">Add contact</button>
         </div>
     </form>
 <script type="text/javascript" src="/js/home.js"></script>
+
 </body>
 </html>
