@@ -9,19 +9,6 @@ app.use(express.static('assets'));
 app.set('view engine','ejs');
 app.set('views',path.join(__dirname,'views'));
 
-
-
-// middleware
-
-app.use((req,res,next)=>{
-    console.log("MiddleWare 1 called!");
-    next();
-});
-
-app.use((req,res,next)=>{
-    console.log("MiddleWare 2 called!!");
-    next();
-});
 const contacts = [
     {
         name:"ankush",
@@ -48,6 +35,21 @@ app.post('/create-contact', (req,res)=>{
     contacts.push(req.body);
     return res.redirect('/');
 });
+
+//Using string params
+app.get('/delete-contact/:phone/:name', (req,res)=>{
+    //console.log(req.params);
+    let phone = req.params.phone;
+    let name = req.params.name;
+    var arrayIndex = contacts.findIndex(contact => contact.phone == phone && contact.name == name);
+
+    if (arrayIndex!=-1){
+        contacts.splice(arrayIndex,1);
+    }
+    return res.redirect('back');
+});
+
+
 
 app.listen(port, (err)=>{
     if(err){

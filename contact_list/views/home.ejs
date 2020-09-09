@@ -18,8 +18,17 @@
     <ul>
         <% for( let i of contact_list){ %>
             <li id="contact">
-                <span class="inner-text" style="float:left"><%= i.name %></span>
-                <span class="inner-text" style="float:right"><%= i.phone %></span>
+                <div class="details">
+                    <span class="inner-text"><%= i.name %></span>
+                    <span class="inner-text"><%= i.phone %></span>
+                </div>
+                <div class="delete-contact">
+                        <a href="/delete-contact/<%= i.phone %>/<%= i.name %>">
+                            <i class="fa fa-window-close"></i>
+                        </a>
+                    </i>
+                </div>
+
             </li>
         <% } %>
     </ul>
