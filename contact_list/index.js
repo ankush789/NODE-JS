@@ -37,10 +37,10 @@ app.post('/create-contact', (req,res)=>{
 });
 
 //Using string params
-app.get('/delete-contact/:phone/:name', (req,res)=>{
-    //console.log(req.params);
-    let phone = req.params.phone;
-    let name = req.params.name;
+app.get('/delete-contact', (req,res)=>{
+    //console.log(req.query);
+    let phone = req.query.phone;
+    let name = req.query.name;
     var arrayIndex = contacts.findIndex(contact => contact.phone == phone && contact.name == name);
 
     if (arrayIndex!=-1){
