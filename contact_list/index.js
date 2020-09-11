@@ -4,6 +4,7 @@ const { get } = require('http');
 const port = 8800;
 
 const db = require('./config/mongoose');
+const Contact = require('./models/contact');
 const app = express();
 app.use(express.urlencoded());
 app.use(express.static('assets'));
