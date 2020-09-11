@@ -26,13 +26,22 @@ const contacts = [
     }
 ];
 
-
+// fetching data from database
 app.get('/',(req,res)=>{
-    return res.render('home', {title: "ANKUSH", contact_list : contacts});
+    Contact.find({}, function(err, contact){
+        if(err){
+            console.log("Error fetching Data fro database.");
+            return;
+        }
+        return res.render('home', { title: "ANKUSH", contact_list: contact });
+    })
+    
 });
 app.get('/practice',(req,res)=>{
     return res.render('practice');
 });
+
+//saving form data to the database
 app.post('/create-contact', (req,res)=>{
     Contact.create(req.body,function(err,createContact){
         if(err){
