@@ -34,8 +34,15 @@ app.get('/practice',(req,res)=>{
     return res.render('practice');
 });
 app.post('/create-contact', (req,res)=>{
-    contacts.push(req.body);
-    return res.redirect('/');
+    Contact.create(req.body,function(err,createContact){
+        if(err){
+            console.log("Error: ", err);
+            return;
+        }
+        console.log("***********", createContact);
+        return res.redirect('back');
+    });
+    
 });
 
 //Using string params
